@@ -18,7 +18,7 @@
     <br /><br />
     <b>Total Runs : </b><input type="number" [(ngModel)]="playerObj.runs" />
     <br /><br />
-    <button class="btn btn-primary" (click)="savePlayer()">Submit</button>
+    <button class="btn btn-primary" *ngIf="editClicked==false" (click)="savePlayer()">Submit</button>
     <button class="btn btn-success ms-3" (click)="updateButton()">Update</button>
     </div>
    </div>

@@ -10,15 +10,15 @@ import { OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   ngOnInit(): void {
 
-    let a = JSON.parse(localStorage.getItem('player'));
-
-    if(a!=null)
+    let b=localStorage.getItem('player');
+    if(b!=null)
     {
-      this.playerArray = a;
+      this.playerArray = JSON.parse(b);
     }
-
   }
   title = 'Cricket_Plater_ToDo';
+
+  editClicked : boolean = false;
 
   // myOb = new MyClass(0, '', 0);
     // ! Cricket Project
@@ -40,12 +40,11 @@ export class AppComponent implements OnInit {
       ) {
         window.alert('Please, Fill All Player Details');
       } else {
-       let a = JSON.parse(localStorage.getItem('player'));
-
-       if(a!=null)
-       {
-         this.playerArray = a;
-       }
+        let b=localStorage.getItem('player');
+        if(b!=null)
+        {
+          this.playerArray = JSON.parse(b);
+        }
         // this.myOb.name = this.playerObj.PlayerName;
         // this.myOb.id = 10;
         // this.myOb.marks = `${this.playerObj.matches}`;
@@ -66,13 +65,19 @@ export class AppComponent implements OnInit {
       if(this.playerArray.length==11)
       {
          alert("Team Completed");
-         return;  
+         return;
       }
     }
    console.log("Array IS"+this.playerArray[0]);
         this.playerArray?.push(this.playerObj);
         localStorage.setItem('player', JSON.stringify(this.playerArray));
-        this.playerArray = JSON.parse(localStorage.getItem('player'));
+
+        let abc=localStorage.getItem('player');
+        if(abc!=null)
+        {
+          this.playerArray = JSON.parse(abc);
+        }
+
         console.log(this.playerArray[0]);
         this.playerObj.PlayerName = '';
         this.playerObj.categery = '';
@@ -82,7 +87,7 @@ export class AppComponent implements OnInit {
       this.updateButton();
     }
 
-    editPlayer(num) {
+    editPlayer(num:number) {
       this.index = num;
       for (let i = 0; i < this.playerArray?.length; i++) {
         if (i == num) {
@@ -92,9 +97,10 @@ export class AppComponent implements OnInit {
           this.playerObj.runs = this.playerArray[i].runs;
         }
       }
+      this.editClicked = true;
     }
 
-    deletePlayer(num) {
+    deletePlayer(num:number) {
       for (let i = 0; i < this.playerArray?.length; i++) {
         if (i == num) {
           for (let j = 0; j < this.playerArray.length - 1; j++) {
@@ -123,6 +129,7 @@ export class AppComponent implements OnInit {
        this.playerObj.matches = "";
        this.playerObj.runs = "";
        this.ngOnInit();
+       this.editClicked = false;
 
     }
 }
